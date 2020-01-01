@@ -1,7 +1,7 @@
 {
   "name": "MzDynamologic/paypal",
   "type": "library",
-  "description": "Laravel plugin forked from srmklive/paypal for Processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
+  "description": "Laravel plugin (forked from srmklive/paypal) for Processing Payments Through Paypal Express Checkout. Can Be Used Independently With Other Applications.",
   "keywords": ["http", "rest", "web service", "paypal", "laravel paypal"],
   "license": "MIT",
   "authors": [
@@ -34,5 +34,5 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": false
 }

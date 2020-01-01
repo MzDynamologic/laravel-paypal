@@ -172,7 +172,7 @@ class ExpressCheckout
      *
      * @return array|\Psr\Http\Message\StreamInterface
      */
-    public function setExpressCheckout($data, $subscription = false)
+    public function setExpressCheckout($data, $subscription = false,$landing_page="Billing",$solution_type="Sole")
     {
         $this->setItemSubTotal($data);
 
@@ -187,8 +187,8 @@ class ExpressCheckout
             'RETURNURL'                      => $data['return_url'],
             'CANCELURL'                      => $data['cancel_url'],
             'LOCALE'                         => $this->locale,
-            'LANDINGPAGE'                    => 'Billing',
-            'SOLUTIONTYPE'                   => 'Sole',
+            'LANDINGPAGE'                    => $landing_page,
+            'SOLUTIONTYPE'                   => $solution_type,
         ]);
 
         $this->setTaxAmount($data);

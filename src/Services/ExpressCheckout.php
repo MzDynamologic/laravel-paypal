@@ -172,24 +172,39 @@ class ExpressCheckout
      *
      * @return array|\Psr\Http\Message\StreamInterface
      */
-    public function setExpressCheckout($data, $subscription = false,$landing_page="Billing",$solution_type="Sole")
+    public function setExpressCheckout($data, $subscription = false,$guest_checkout=false)
     {
         $this->setItemSubTotal($data);
 
-        $this->post = $this->setCartItems($data['items'])->merge([
-            'PAYMENTREQUEST_0_ITEMAMT'       => $this->subtotal,
-            'PAYMENTREQUEST_0_AMT'           => $data['total'],
-            'PAYMENTREQUEST_0_PAYMENTACTION' => $this->paymentAction,
-            'PAYMENTREQUEST_0_CURRENCYCODE'  => $this->currency,
-            'PAYMENTREQUEST_0_DESC'          => $data['invoice_description'],
-            'PAYMENTREQUEST_0_INVNUM'        => $data['invoice_id'],
-            'NOSHIPPING'                     => 1,
-            'RETURNURL'                      => $data['return_url'],
-            'CANCELURL'                      => $data['cancel_url'],
-            'LOCALE'                         => $this->locale,
-            'LANDINGPAGE'                    => $landing_page,
-            'SOLUTIONTYPE'                   => $solution_type,
-        ]);
+        if($guest_checkout){
+            $this->post = $this->setCartItems($data['items'])->merge([
+                'PAYMENTREQUEST_0_ITEMAMT'       => $this->subtotal,
+                'PAYMENTREQUEST_0_AMT'           => $data['total'],
+                'PAYMENTREQUEST_0_PAYMENTACTION' => $this->paymentAction,
+                'PAYMENTREQUEST_0_CURRENCYCODE'  => $this->currency,
+                'PAYMENTREQUEST_0_DESC'          => $data['invoice_description'],
+                'PAYMENTREQUEST_0_INVNUM'        => $data['invoice_id'],
+                'NOSHIPPING'                     => 1,
+                'RETURNURL'                      => $data['return_url'],
+                'CANCELURL'                      => $data['cancel_url'],
+                'LOCALE'                         => $this->locale,
+                'LANDINGPAGE'                    => 'Billing',
+                'SOLUTIONTYPE'                   => 'Sole',
+            ]);
+        }else{
+            $this->post = $this->setCartItems($data['items'])->merge([
+                'PAYMENTREQUEST_0_ITEMAMT'       => $this->subtotal,
+                'PAYMENTREQUEST_0_AMT'           => $data['total'],
+                'PAYMENTREQUEST_0_PAYMENTACTION' => $this->paymentAction,
+                'PAYMENTREQUEST_0_CURRENCYCODE'  => $this->currency,
+                'PAYMENTREQUEST_0_DESC'          => $data['invoice_description'],
+                'PAYMENTREQUEST_0_INVNUM'        => $data['invoice_id'],
+                'NOSHIPPING'                     => 1,
+                'RETURNURL'                      => $data['return_url'],
+                'CANCELURL'                      => $data['cancel_url'],
+                'LOCALE'                         => $this->locale,
+            ]);
+        }
 
         $this->setTaxAmount($data);
 

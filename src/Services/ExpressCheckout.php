@@ -187,6 +187,8 @@ class ExpressCheckout
             'RETURNURL'                      => $data['return_url'],
             'CANCELURL'                      => $data['cancel_url'],
             'LOCALE'                         => $this->locale,
+            'LANDINGPAGE'                    => 'Billing',
+            'SOLUTIONTYPE'                   => 'Sole',
         ]);
 
         $this->setTaxAmount($data);
